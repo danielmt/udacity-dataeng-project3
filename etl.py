@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import argparse
 from psycopg2.extensions import cursor, connection
 
@@ -24,7 +26,7 @@ def main():
         description="Sparkify ETL"
     )
 
-    option_group = parser.add_mutually_exclusive_group()
+    option_group = parser.add_mutually_exclusive_group(required=True)
 
     option_group.add_argument(
         "--create-tables",
