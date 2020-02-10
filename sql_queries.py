@@ -14,79 +14,77 @@ artist_table_drop = "DROP TABLE IF EXISTS artist"
 time_table_drop = "DROP TABLE IF EXISTS time"
 
 # CREATE TABLES
+
 staging_events_table_create = """
-    CREATE TABLE staging_events (
-        artist VARCHAR,
-        auth VARCHAR NOT NULL,
-        first_name VARCHAR,
-        gender CHAR(1),
-        item_in_session INT NOT NULL,
-        last_name VARCHAR,
-        length FLOAT,
-        level VARCHAR NOT NULL,
-        location VARCHAR,
-        method VARCHAR NOT NULL,
-        page VARCHAR NOT NULL,
-        registration INT,
-        session_id INT NOT NULL,
-        song VARCHAR,
-        status INT NOT NULL,
-        ts INT NOT NULL
-        user_agent VARCHAR,
-        user_id VARCHAR NOT NULL
-    )
+  CREATE TABLE staging_events (
+    artist VARCHAR,
+    auth VARCHAR NOT NULL,
+    first_name VARCHAR,
+    gender VARCHAR(1),
+    item_in_session INTEGER NOT NULL,
+    last_name VARCHAR,
+    length DECIMAL,
+    level VARCHAR NOT NULL,
+    location VARCHAR,
+    method VARCHAR NOT NULL,
+    page VARCHAR NOT NULL,
+    registration INTEGER,
+    session_id INTEGER NOT NULL,
+    song VARCHAR,
+    status INTEGER NOT NULL,
+    ts INTEGER NOT NULL
+    user_agent VARCHAR,
+    user_id VARCHAR NOT NULL
+  )
 """
 
 staging_songs_table_create = """
-    CREATE TABLE staging_songs (
-        artist_id VARCHAR NOT NULL,
-        artist_latitude FLOAT,
-        artist_location VARCHAR,
-        artist_longitude FLOAT,
-        artist_name VARCHAR NOT NULL,
-        duration FLOAT NOT NULL,
-        num_songs INT NOT NULL,
-        song_id VARCHAR NOT NULL,
-        title VARCHAR NOT NULL,
-        year INT NOT NULL
-    )
+  CREATE TABLE staging_songs (
+    artist_id VARCHAR NOT NULL,
+    artist_latitude DECIMAL,
+    artist_location VARCHAR,
+    artist_longitude DECIMAL,
+    artist_name VARCHAR NOT NULL,
+    duration DECIMAL NOT NULL,
+    num_songs INTEGER NOT NULL,
+    song_id VARCHAR NOT NULL,
+    title VARCHAR NOT NULL,
+    year INTEGER NOT NULL
+  )
 """
 
 songplay_table_create = """
-    CREATE TABLE songplay (
-        songplay_id IDENTITY(0,1),
-        start_time TIMESTAMP NOT NULL,
-        user_id INT NOT NULL,
-        level VARCHAR NOT NULL,
-        song_id VARCHAR(18),
-        artist_id VARCHAR(18),
-        session_id INT NOT NULL,
-        location VARCHAR NOT NULL,
-        user_agent VARCHAR NOT NULL,
-        PRIMARY KEY (songplay_id)
-    )
+  CREATE TABLE songplays (
+    songplay_id IDENTITY(0,1) NOT NULL SORTKEY,
+    start_time TIMESTAMP NOT NULL,
+    user_id INTEGER NOT NULL DISTKEY,
+    level VARCHAR NOT NULL,
+    song_id VARCHAR(18) NOT NULL,
+    artist_id VARCHAR(18) NOT NULL,
+    session_id INTEGER NOT NULL,
+    location VARCHAR NOT NULL,
+    user_agent VARCHAR NOT NULL
+  )
 """
 
 user_table_create = ("""
-    CREATE TABLE user (
-        user_id INT,
-        first_name VARCHAR NOT NULL,
-        last_name VARCHAR NOT NULL,
-        gender CHAR(1) NOT NULL,
-        level VARCHAR NOT NULL,
-        PRIMARY KEY (user_id)
-    )
+  CREATE TABLE users (
+    user_id INTEGER SORTKEY,
+    first_name VARCHAR NOT NULL,
+    last_name VARCHAR NOT NULL,
+    gender VARCHAR(1) NOT NULL,
+    level VARCHAR NOT NULL
+  )
 """)
 
 song_table_create = """
-    CREATE TABLE song (
-        song_id VARCHAR(18),
-        title VARCHAR NOT NULL,
-        artist_id VARCHAR(18) NOT NULL,
-        year INT NOT NULL,
-        duration FLOAT NOT NULL,
-        PRIMARY KEY (song_id)
-    )
+  CREATE TABLE songs (
+    song_id VARCHAR(18) SORTKEY,
+    title VARCHAR NOT NULL,
+    artist_id VARCHAR(18) NOT NULL,
+    year INTEGER NOT NULL,
+    duration DECIMAL NOT NULL
+  )
 """
 
 artist_table_create = """
@@ -100,15 +98,15 @@ artist_table_create = """
 """
 
 time_table_create = """
-    CREATE TABLE time (
-        start_time TIMESTAMP NOT NULL,
-        hour int NOT NULL,
-        day int NOT NULL,
-        week int NOT NULL,
-        month int NOT NULL,
-        year int NOT NULL,
-        weekday int NOT NULL
-    )
+  CREATE TABLE time (
+    start_time TIMESTAMP NOT NULL,
+    hour int NOT NULL,
+    day int NOT NULL,
+    week int NOT NULL,
+    month int NOT NULL distkey,
+    year int NOT NULL,
+    weekday int NOT NULL
+  )
 """
 
 # STAGING TABLES
