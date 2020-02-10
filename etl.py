@@ -10,13 +10,15 @@ from sql_queries import copy_table_queries, insert_table_queries
 
 
 def load_staging_tables(cur: cursor, conn: connection) -> None:
-    for query in copy_table_queries:
+    for table, query in copy_table_queries:
+        print(f"Loading {table} data")
         cur.execute(query)
         conn.commit()
 
 
 def insert_tables(cur: cursor, conn: connection) -> None:
-    for query in insert_table_queries:
+    for table, query in insert_table_queries:
+        print(f"Inserting data for {table} table")
         cur.execute(query)
         conn.commit()
 
