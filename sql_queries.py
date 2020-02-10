@@ -117,19 +117,22 @@ time_table_create = """
 # STAGING TABLES
 
 staging_events_copy = f"""
-  copy staging_events from '{LOG_DATA}'
-  credentials 'aws_iam_role={ARN}'
-  json from '{LOG_JSON_PATH}'
-  compupdate off
-  region 'us-west-2';
+  COPY staging_events FROM {LOG_DATA}
+  CREDENTIALS 'aws_iam_role={ARN}'
+  FORMAT AS JSON {LOG_JSON_PATH}
+  TIMEFORMAT as 'epochmillisecs'
+  TRUNCATECOLUMNS BLANKSASNULL EMPTYASNULL
+  COMPUPDATE OFF
+  REGION 'us-west-2';
 """
 
 staging_songs_copy = f"""
-  copy staging_songs from '{SONG_DATA}'
-  credentials 'aws_iam_role={ARN}'
-  json 'auto'
-  compupdate off
-  region 'us-west-2';
+  COPY staging_songs FROM {SONG_DATA}
+  CREDENTIALS 'aws_iam_role={ARN}'
+  JSON 'auto'
+  TRUNCATECOLUMNS BLANKSASNULL EMPTYASNULL
+  COMPUPDATE OFF
+  REGION 'us-west-2';
 """
 
 # FINAL TABLES
