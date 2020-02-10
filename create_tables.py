@@ -1,4 +1,4 @@
-from psycopg2 import cursor, connection
+from psycopg2.extensions import cursor, connection
 from sql_queries import create_table_queries, drop_table_queries
 
 
