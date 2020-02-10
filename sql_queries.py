@@ -33,13 +33,13 @@ staging_events_table_create = """
     location VARCHAR,
     method VARCHAR NOT NULL,
     page VARCHAR NOT NULL,
-    registration INTEGER,
+    registration VARCHAR,
     session_id INTEGER NOT NULL,
     song VARCHAR,
     status INTEGER NOT NULL,
-    ts INTEGER NOT NULL
+    ts TIMESTAMP NOT NULL,
     user_agent VARCHAR,
-    user_id VARCHAR NOT NULL
+    user_id INTEGER
   )
 """
 
