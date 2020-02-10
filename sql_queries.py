@@ -3,8 +3,13 @@ from settings import get_config
 
 CONFIG = get_config()
 
+ARN = CONFIG.get("IAM_ROLE", "ARN")
+LOG_DATA = CONFIG.get("S3", "LOG_DATA")
+LOG_JSON_PATH = CONFIG.get("S3", "LOG_JSONPATH")
+SONG_DATA = CONFIG.get("S3", "SONG_DATA")
 
 # DROP TABLES
+
 staging_events_table_drop = "DROP TABLE IF EXISTS staging_events"
 staging_songs_table_drop = "DROP TABLE IF EXISTS staging_songs"
 songplay_table_drop = "DROP TABLE IF EXISTS songplay"
@@ -111,28 +116,21 @@ time_table_create = """
 
 # STAGING TABLES
 
-staging_events_copy = ("""
-    copy staging_events from '{log_data}'
-    credentials 'aws_iam_role={iam_role}'
-    json from '{json_path}'
-    compupdate off
-    region 'us-west-2';
-""").format(
-    log_data=CONFIG["S3"]["LOG_DATA"],
-    iam_role=CONFIG["IAM_ROLE"]["ARN"],
-    json_path=CONFIG["S3"]["LOG_JSONPATH"],
-)
+staging_events_copy = f"""
+  copy staging_events from '{LOG_DATA}'
+  credentials 'aws_iam_role={ARN}'
+  json from '{LOG_JSON_PATH}'
+  compupdate off
+  region 'us-west-2';
+"""
 
-staging_songs_copy = ("""
-    copy staging_songs from '{song_data}'
-    credentials 'aws_iam_role={iam_role}'
-    json 'auto'
-    compupdate off
-    region 'us-west-2';
-""").format(
-    song_data=CONFIG["S3"]["SONG_DATA"],
-    iam_role=CONFIG["IAM_ROLE"]["ARN"],
-)
+staging_songs_copy = f"""
+  copy staging_songs from '{SONG_DATA}'
+  credentials 'aws_iam_role={ARN}'
+  json 'auto'
+  compupdate off
+  region 'us-west-2';
+"""
 
 # FINAL TABLES
 
