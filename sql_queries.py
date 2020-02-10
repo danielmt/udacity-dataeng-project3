@@ -90,15 +90,13 @@ song_table_create = """
 """
 
 artist_table_create = """
-    CREATE TABLE time (
-        start_time TIMESTAMP NOT NULL,
-        hour int NOT NULL,
-        day int NOT NULL,
-        week int NOT NULL,
-        month int NOT NULL,
-        year int NOT NULL,
-        weekday int NOT NULL
-    )
+  CREATE TABLE artist (
+    artist_id VARCHAR(18) SORTKEY,
+    name VARCHAR NOT NULL,
+    location VARCHAR NOT NULL,
+    latitude DECIMAL,
+    longitude DECIMAL
+  )
 """
 
 time_table_create = """
