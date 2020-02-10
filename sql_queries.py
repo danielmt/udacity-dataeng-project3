@@ -1,5 +1,10 @@
-# DROP TABLES
+from settings import get_config
 
+
+CONFIG = get_config()
+
+
+# DROP TABLES
 staging_events_table_drop = "DROP TABLE IF EXISTS staging_events"
 staging_songs_table_drop = "DROP TABLE IF EXISTS staging_songs"
 songplay_table_drop = "DROP TABLE IF EXISTS songplay"
@@ -111,20 +116,27 @@ time_table_create = """
 # STAGING TABLES
 
 staging_events_copy = ("""
-    copy staging_events from 's3://udacity-dend/log_data'
-    credentials 'aws_iam_role={}'
-    json from 's3://udacity-dend/log_json_path.json'
+    copy staging_events from '{log_data}'
+    credentials 'aws_iam_role={iam_role}'
+    json from '{json_path}'
     compupdate off
     region 'us-west-2';
-""").format()
+""").format(
+    log_data=CONFIG["S3"]["LOG_DATA"],
+    iam_role=CONFIG["IAM_ROLE"]["ARN"],
+    json_path=CONFIG["S3"]["LOG_JSONPATH"],
+)
 
 staging_songs_copy = ("""
-    copy staging_songs from 's3://udacity-dend/song_data'
-    credentials 'aws_iam_role={}'
+    copy staging_songs from '{song_data}'
+    credentials 'aws_iam_role={iam_role}'
     json 'auto'
     compupdate off
     region 'us-west-2';
-""").format()
+""").format(
+    song_data=CONFIG["S3"]["SONG_DATA"],
+    iam_role=CONFIG["IAM_ROLE"]["ARN"],
+)
 
 # FINAL TABLES
 
