@@ -23,21 +23,21 @@ time_table_drop = "DROP TABLE IF EXISTS time"
 staging_events_table_create = """
   CREATE TABLE staging_events (
     artist VARCHAR,
-    auth VARCHAR NOT NULL,
+    auth VARCHAR,
     first_name VARCHAR,
     gender VARCHAR(1),
-    item_in_session INTEGER NOT NULL,
+    item_in_session INTEGER,
     last_name VARCHAR,
     length DECIMAL,
-    level VARCHAR NOT NULL,
+    level VARCHAR,
     location VARCHAR,
-    method VARCHAR NOT NULL,
-    page VARCHAR NOT NULL,
+    method VARCHAR,
+    page VARCHAR,
     registration VARCHAR,
-    session_id INTEGER NOT NULL SORTKEY DISTKEY,
+    session_id INTEGER,
     song VARCHAR,
-    status INTEGER NOT NULL,
-    ts TIMESTAMP NOT NULL,
+    status INTEGER,
+    ts TIMESTAMP,
     user_agent VARCHAR,
     user_id INTEGER
   )
@@ -45,16 +45,16 @@ staging_events_table_create = """
 
 staging_songs_table_create = """
   CREATE TABLE staging_songs (
-    artist_id VARCHAR NOT NULL SORTKEY DISTKEY,
+    artist_id VARCHAR,
     artist_latitude DECIMAL,
     artist_location VARCHAR,
     artist_longitude DECIMAL,
-    artist_name VARCHAR NOT NULL,
-    duration DECIMAL NOT NULL,
-    num_songs INTEGER NOT NULL,
-    song_id VARCHAR NOT NULL,
-    title VARCHAR NOT NULL,
-    year INTEGER NOT NULL
+    artist_name VARCHAR,
+    duration DECIMAL,
+    num_songs INTEGER,
+    song_id VARCHAR,
+    title VARCHAR,
+    year INTEGER
   )
 """
 
