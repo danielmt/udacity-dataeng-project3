@@ -5,8 +5,16 @@ from psycopg2.extensions import cursor, connection
 
 from settings import get_config
 from db import get_connection
-from create_tables import drop_tables, create_tables
-from sql_queries import copy_table_queries, insert_table_queries
+from create_tables import (
+    drop_tables,
+    create_tables,
+    drop_staging_tables,
+    create_staging_tables,
+)
+from sql_queries import (
+    copy_table_queries,
+    insert_table_queries
+)
 
 
 def load_staging_tables(cur: cursor, conn: connection) -> None:
@@ -42,6 +50,13 @@ def main():
         help="Load Data",
     )
 
+    parser.add_argument(
+        "--staging",
+        action="store_true",
+        default=False,
+        help="Include Staging",
+    )
+
     args = parser.parse_args()
 
     config = get_config()
@@ -50,10 +65,14 @@ def main():
     cur = conn.cursor()
 
     if args.create_tables:
+        if args.staging:
+            drop_staging_tables(cur, conn)
+            create_staging_tables(cur, conn)
         drop_tables(cur, conn)
         create_tables(cur, conn)
     elif args.load_data:
-        load_staging_tables(cur, conn)
+        if args.staging:
+            load_staging_tables(cur, conn)
         insert_tables(cur, conn)
 
     conn.close()
