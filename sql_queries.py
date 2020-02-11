@@ -138,18 +138,81 @@ staging_songs_copy = f"""
 # FINAL TABLES
 
 songplay_table_insert = """
+  INSERT INTO songplays
+    (start_time, user_id, level, song_id, artist_id, session_id, location, user_agent)
+  SELECT
+    DISTINCT ts,
+    e.user_id,
+    e.level,
+    s.song_id,
+    s.artist_id,
+    e.session_id,
+    e.location,
+    e.user_agent
+  FROM staging_events AS e
+  JOIN staging_songs AS s ON e.artist = s.artist_name
+  WHERE
+    e.page = 'NextSong'
 """
 
 user_table_insert = """
+  INSERT INTO users
+    (user_id, first_name, last_name, gender, level)
+  SELECT
+    DISTINCT user_id,
+    first_name,
+    last_name,
+    gender,
+    level
+  FROM staging_events
+  WHERE
+    page = 'NextSong'
+    AND user_id IS NOT NULL
 """
 
 song_table_insert = """
+  INSERT INTO songs
+    (song_id, title, artist_id, year, duration)
+  SELECT
+    DISTINCT song_id,
+    title,
+    artist_id,
+    year,
+    duration
+  FROM staging_songs
+  WHERE
+    song_id IS NOT NULL
 """
 
 artist_table_insert = """
+  INSERT INTO artists
+    (artist_id, name, location, latitude, longitude)
+  SELECT
+    DISTINCT artist_id,
+    artist_name,
+    artist_location,
+    artist_latitude,
+    artist_longitude
+  FROM staging_songs
+  WHERE
+    artist_id IS NOT NULL
 """
 
 time_table_insert = """
+  INSERT INTO time
+    (start_time, hour, day, week, month, year, weekday)
+  SELECT
+    DISTINCT ts,
+    EXTRACT(hour FROM ts),
+    EXTRACT(day FROM ts),
+    EXTRACT(week FROM ts),
+    EXTRACT(month FROM ts),
+    EXTRACT(year FROM ts),
+    EXTRACT(weekday FROM ts)
+  FROM staging_events
+  WHERE
+    page = 'NextSong'
+    AND ts IS NOT NULL
 """
 
 # QUERY LISTS
