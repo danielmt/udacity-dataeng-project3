@@ -96,7 +96,7 @@ artist_table_create = """
   CREATE TABLE artists (
     artist_id VARCHAR(18) SORTKEY,
     name VARCHAR NOT NULL,
-    location VARCHAR NOT NULL,
+    location VARCHAR,
     latitude DECIMAL,
     longitude DECIMAL
   )
