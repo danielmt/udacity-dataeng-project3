@@ -45,7 +45,7 @@ staging_events_table_create = """
 
 staging_songs_table_create = """
   CREATE TABLE staging_songs (
-    artist_id VARCHAR,
+    artist_id VARCHAR NOT NULL PRIMARY KEY,
     artist_latitude DECIMAL,
     artist_location VARCHAR,
     artist_longitude DECIMAL,
@@ -61,14 +61,14 @@ staging_songs_table_create = """
 songplay_table_create = """
   CREATE TABLE songplays (
     songplay_id INTEGER IDENTITY(0,1) NOT NULL PRIMARY KEY,
-    start_time TIMESTAMP NOT NULL,
-    user_id INTEGER NOT NULL DISTKEY,
-    level VARCHAR NOT NULL,
+    start_time TIMESTAMP,
+    user_id INTEGER DISTKEY,
+    level VARCHAR,
     song_id VARCHAR(18) NOT NULL,
     artist_id VARCHAR(18) NOT NULL,
-    session_id INTEGER NOT NULL,
-    location VARCHAR NOT NULL,
-    user_agent VARCHAR NOT NULL
+    session_id INTEGER,
+    location VARCHAR,
+    user_agent VARCHAR
   )
 """
 
@@ -76,7 +76,7 @@ user_table_create = ("""
   CREATE TABLE users (
     user_id INTEGER NOT NULL PRIMARY KEY,
     first_name VARCHAR,
-    last_name VARCHAR ,
+    last_name VARCHAR,
     gender VARCHAR(1),
     level VARCHAR
   )
@@ -86,7 +86,7 @@ song_table_create = """
   CREATE TABLE songs (
     song_id VARCHAR(18) NOT NULL PRIMARY KEY,
     title VARCHAR,
-    artist_id VARCHAR(18),
+    artist_id VARCHAR(18) NOT NULL,
     year INTEGER,
     duration DECIMAL
   )
