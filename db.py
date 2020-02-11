@@ -1,11 +1,10 @@
-from typing import Dict
 import psycopg2
 from psycopg2.extensions import connection
 
 from settings import get_config
 
 
-def get_connection(config: Dict[str, str]) -> connection:
+def get_connection() -> connection:
     """connect to database and return a connection and cursor tuple"""
 
     config = get_config()

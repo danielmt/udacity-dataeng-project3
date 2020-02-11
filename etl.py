@@ -2,7 +2,6 @@
 
 from psycopg2.extensions import cursor, connection
 
-from settings import get_config
 from db import get_connection
 from sql_queries import (
     copy_table_queries,
@@ -25,9 +24,8 @@ def insert_tables(cur: cursor, conn: connection) -> None:
 
 
 def main():
-    config = get_config()
 
-    conn = get_connection(config["CLUSTER"])
+    conn = get_connection()
     cur = conn.cursor()
 
     load_staging_tables(cur, conn)
