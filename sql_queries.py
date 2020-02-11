@@ -34,7 +34,7 @@ staging_events_table_create = """
     method VARCHAR NOT NULL,
     page VARCHAR NOT NULL,
     registration VARCHAR,
-    session_id INTEGER NOT NULL,
+    session_id INTEGER NOT NULL SORTKEY DISTKEY,
     song VARCHAR,
     status INTEGER NOT NULL,
     ts TIMESTAMP NOT NULL,
@@ -45,7 +45,7 @@ staging_events_table_create = """
 
 staging_songs_table_create = """
   CREATE TABLE staging_songs (
-    artist_id VARCHAR NOT NULL,
+    artist_id VARCHAR NOT NULL SORTKEY DISTKEY,
     artist_latitude DECIMAL,
     artist_location VARCHAR,
     artist_longitude DECIMAL,
