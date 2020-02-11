@@ -104,13 +104,13 @@ artist_table_create = """
 
 time_table_create = """
   CREATE TABLE time (
-    start_time TIMESTAMP NOT NULL,
-    hour int NOT NULL,
-    day int NOT NULL,
-    week int NOT NULL,
-    month int NOT NULL distkey,
-    year int NOT NULL,
-    weekday int NOT NULL
+    start_time TIMESTAMP NOT NULL SORTKEY,
+    hour INTEGER NOT NULL,
+    day INTEGER NOT NULL,
+    week INTEGER NOT NULL,
+    month INTEGER NOT NULL DISTKEY,
+    year INTEGER NOT NULL,
+    weekday INTEGER NOT NULL
   )
 """
 
