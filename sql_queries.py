@@ -62,11 +62,11 @@ songplay_table_create = """
   CREATE TABLE songplays (
     songplay_id INTEGER IDENTITY(0,1) NOT NULL PRIMARY KEY,
     start_time TIMESTAMP,
-    user_id INTEGER DISTKEY,
+    user_id INTEGER DISTKEY NOT NULL,
     level VARCHAR,
     song_id VARCHAR(18) NOT NULL,
     artist_id VARCHAR(18) NOT NULL,
-    session_id INTEGER,
+    session_id INTEGER NOT NULL,
     location VARCHAR,
     user_agent VARCHAR
   )
@@ -105,12 +105,12 @@ artist_table_create = """
 time_table_create = """
   CREATE TABLE time (
     start_time TIMESTAMP NOT NULL PRIMARY KEY,
-    hour INTEGER,
-    day INTEGER,
-    week INTEGER,
-    month INTEGER,
-    year INTEGER,
-    weekday INTEGER
+    hour INTEGER NOT NULL,
+    day INTEGER NOT NULL,
+    week INTEGER NOT NULL,
+    month INTEGER NOT NULL,
+    year INTEGER NOT NULL,
+    weekday INTEGER NOT NULL
   )
 """
 

@@ -60,21 +60,21 @@ data into a set of dimensional tables more suitable for analytics.
 | Column          | Type                        | Nullable |
 | --------------- | --------------------------- | -------- |
 | artist          | VARCHAR                     | YES      |
-| auth            | VARCHAR                     |          |
+| auth            | VARCHAR                     | YES      |
 | first_name      | VARCHAR                     | YES      |
 | gender          | VARCHAR(1)                  | YES      |
-| item_in_session | INTEGER                     |          |
+| item_in_session | INTEGER                     | YES      |
 | last_name       | VARCHAR                     | YES      |
 | length          | DECIMAL                     | YES      |
-| level           | VARCHAR                     |          |
+| level           | VARCHAR                     | YES      |
 | location        | VARCHAR                     | YES      |
-| method          | VARCHAR                     |          |
-| page            | VARCHAR                     |          |
+| method          | VARCHAR                     | YES      |
+| page            | VARCHAR                     | YES      |
 | registration    | VARCHAR                     | YES      |
-| session_id      | INTEGER                     |          |
+| session_id      | INTEGER                     | YES      |
 | song            | VARCHAR                     | YES      |
-| status          | INTEGER                     |          |
-| ts              | TIMESTAMP                   |          |
+| status          | INTEGER                     | YES      |
+| ts              | TIMESTAMP                   | YES      |
 | user_agent      | VARCHAR                     | YES      |
 | user_id         | INTEGER                     | YES      |
 
@@ -85,16 +85,16 @@ dist key: session_id
 
 | Column           | Type                        | Nullable |
 | ---------------- | --------------------------- | -------- |
-| artist_id        | VARCHAR                     |          |
+| artist_id        | VARCHAR                     | YES      |
 | artist_latitude  | DECIMAL                     | YES      |
 | artist_location  | VARCHAR                     | YES      |
 | artist_longitude | DECIMAL                     | YES      |
-| artist_name      | VARCHAR                     |          |
-| duration         | DECIMAL                     |          |
-| num_songs        | INTEGER                     |          |
-| song_id          | VARCHAR                     |          |
-| title            | VARCHAR                     |          |
-| year             | INTEGER                     |          |
+| artist_name      | VARCHAR                     | YES      |
+| duration         | DECIMAL                     | YES      |
+| num_songs        | INTEGER                     | YES      |
+| song_id          | VARCHAR                     | YES      |
+| title            | VARCHAR                     | YES      |
+| year             | INTEGER                     | YES      |
 
 dist key: artist_id
 sort key: artist_id
@@ -109,16 +109,16 @@ Records in event data associated with song plays i.e. records with `page`
 | Column      | Type                        | Nullable |
 | ----------- | --------------------------- | -------- |
 | songplay_id | INTEGER IDENTITY(0,1)       |          |
-| start_time  | TIMESTAMP                   |          |
+| start_time  | TIMESTAMP                   | YES      |
 | user_id     | INTEGER                     |          |
-| level       | VARCHAR                     |          |
+| level       | VARCHAR                     | YES      |
 | song_id     | VARCHAR(18)                 |          |
 | artist_id   | VARCHAR(18)                 |          |
 | session_id  | INTEGER                     |          |
-| location    | VARCHAR                     |          |
-| user_agent  | VARCHAR                     |          |
+| location    | VARCHAR                     | YES      |
+| user_agent  | VARCHAR                     | YES      |
 
-sort key: songplay_id
+primary key: songplay_id
 dist key: user_id
 
 ### Dimension Tables
@@ -130,12 +130,12 @@ Users in the app.
 | Column     | Type              | Nullable |
 | ---------- | ----------------- | -------- |
 | user_id    | INTEGER           |          |
-| first_name | VARCHAR           |          |
-| last_name  | VARCHAR           |          |
-| gender     | VARCHAR(1)        |          |
-| level      | VARCHAR           |          |
+| first_name | VARCHAR           | YES      |
+| last_name  | VARCHAR           | YES      |
+| gender     | VARCHAR(1)        | YES      |
+| level      | VARCHAR           | YES      |
 
-sort key: user_id
+primary key: user_id
 
 #### songs
 
@@ -144,12 +144,12 @@ Songs in music database.
 | Column    | Type                  | Nullable |
 | --------- | --------------------- | -------- |
 | song_id   | VARCHAR(18)           |          |
-| title     | VARCHAR               |          |
+| title     | VARCHAR               | YES      |
 | artist_id | VARCHAR(18)           |          |
-| year      | INTEGER               |          |
-| duration  | DECIMAL               |          |
+| year      | INTEGER               | YES      |
+| duration  | DECIMAL               | YES      |
 
-sort key: song_id
+primary key: song_id
 
 #### artists
 
@@ -158,12 +158,12 @@ Artists in music database.
 | Column    | Type                  | Nullable |
 | --------- | --------------------- | -------- |
 | artist_id | VARCHAR(18)           |          |
-| name      | VARCHAR               |          |
+| name      | VARCHAR               | YES      |
 | location  | VARCHAR               | YES      |
 | latitude  | DECIMAL               | YES      |
 | longitude | DECIMAL               | YES      |
 
-sort key: artist_id
+primary key: artist_id
 
 #### time
 
@@ -179,8 +179,7 @@ Timestamps of records in songplays broken down into specific units.
 | year       | INTEGER                     |          |
 | weekday    | INTEGER                     |          |
 
-sort key: start_time
-dist key: month
+primary key: start_time
 
 ## Build
 
