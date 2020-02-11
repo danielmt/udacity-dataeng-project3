@@ -60,7 +60,7 @@ staging_songs_table_create = """
 
 songplay_table_create = """
   CREATE TABLE songplays (
-    songplay_id INTEGER IDENTITY(0,1) NOT NULL SORTKEY,
+    songplay_id INTEGER IDENTITY(0,1) NOT NULL PRIMARY KEY,
     start_time TIMESTAMP NOT NULL,
     user_id INTEGER NOT NULL DISTKEY,
     level VARCHAR NOT NULL,
@@ -74,28 +74,28 @@ songplay_table_create = """
 
 user_table_create = ("""
   CREATE TABLE users (
-    user_id INTEGER NOT NULL SORTKEY,
-    first_name VARCHAR NOT NULL,
-    last_name VARCHAR NOT NULL,
-    gender VARCHAR(1) NOT NULL,
-    level VARCHAR NOT NULL
+    user_id INTEGER NOT NULL PRIMARY KEY,
+    first_name VARCHAR,
+    last_name VARCHAR ,
+    gender VARCHAR(1),
+    level VARCHAR
   )
 """)
 
 song_table_create = """
   CREATE TABLE songs (
-    song_id VARCHAR(18) NOT NULL SORTKEY,
-    title VARCHAR NOT NULL,
-    artist_id VARCHAR(18) NOT NULL,
-    year INTEGER NOT NULL,
-    duration DECIMAL NOT NULL
+    song_id VARCHAR(18) NOT NULL PRIMARY KEY,
+    title VARCHAR,
+    artist_id VARCHAR(18),
+    year INTEGER,
+    duration DECIMAL
   )
 """
 
 artist_table_create = """
   CREATE TABLE artists (
-    artist_id VARCHAR(18) NOT NULL SORTKEY,
-    name VARCHAR NOT NULL,
+    artist_id VARCHAR(18) NOT NULL PRIMARY KEY,
+    name VARCHAR,
     location VARCHAR,
     latitude DECIMAL,
     longitude DECIMAL
@@ -104,13 +104,13 @@ artist_table_create = """
 
 time_table_create = """
   CREATE TABLE time (
-    start_time TIMESTAMP NOT NULL SORTKEY,
-    hour INTEGER NOT NULL,
-    day INTEGER NOT NULL,
-    week INTEGER NOT NULL,
-    month INTEGER NOT NULL DISTKEY,
-    year INTEGER NOT NULL,
-    weekday INTEGER NOT NULL
+    start_time TIMESTAMP NOT NULL PRIMARY KEY,
+    hour INTEGER,
+    day INTEGER,
+    week INTEGER,
+    month INTEGER,
+    year INTEGER,
+    weekday INTEGER
   )
 """
 
