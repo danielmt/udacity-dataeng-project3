@@ -217,12 +217,9 @@ time_table_insert = """
 
 # QUERY LISTS
 
-create_staging_table_queries = [
+create_table_queries = [
     ("staging_events", staging_events_table_create),
     ("staging_songs", staging_songs_table_create),
-]
-
-create_table_queries = [
     ("songplays", songplay_table_create),
     ("users", user_table_create),
     ("songs", song_table_create),
@@ -230,12 +227,9 @@ create_table_queries = [
     ("time", time_table_create),
 ]
 
-drop_staging_table_queries = [
+drop_table_queries = [
     ("staging_events", staging_events_table_drop),
     ("staging_songs", staging_songs_table_drop),
-]
-
-drop_table_queries = [
     ("songplays", songplay_table_drop),
     ("users", user_table_drop),
     ("songs", song_table_drop),

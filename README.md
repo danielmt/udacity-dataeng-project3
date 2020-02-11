@@ -214,18 +214,14 @@ To run the project, use `poetry` to activate the virtual environment:
 poetry shell
 ```
 
-To create all tables (including staging area):
+To create all tables:
 
 ``` sh
-./etl.py --create-tables --staging
+./create_tables.py
 ```
 
-To run the pipeline (including staging area):
+To run the pipeline:
 
 ``` sh
-./etl.py --load-data --staging
+./etl.py
 ```
-
-If you don't need to reload data into staging area, you can drop `--staging`
-parameter, which will only extract and transform data from staging area to final
-tables.
